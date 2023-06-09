@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SimpleCity.AI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,13 @@ public class GameManager : MonoBehaviour
     public UIController uiController;
 
     public StructureManager structureManager;
+
+
+    public StructureManager structureManager;
+
+    public ObjectDetector objectDetector;
+
+    public PathVisualizer pathVisualizer;
 
     private void Start()
     {
