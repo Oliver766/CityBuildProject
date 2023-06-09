@@ -22,7 +22,7 @@ public class RoadManager : MonoBehaviour
     }
     public void placeRoad(Vector3Int position)
     {
-        if (placeMentManager.checkIfPoistionInBound(position) == false)
+        if (placeMentManager.CheckIfPositionInBound(position) == false)
             return;
         if (placeMentManager.CheckIfPositionIsFree(position) == false)
             return;
@@ -50,7 +50,7 @@ public class RoadManager : MonoBehaviour
 
             roadPositionsToRecheck.Clear();
 
-            temporaryPlacementPositions = placeMentManager.GetPathbetween(startPosition, position);
+            temporaryPlacementPositions = placeMentManager.GetPathBetween(startPosition, position);
 
             foreach(var temporaryPosition in temporaryPlacementPositions)
             {
@@ -66,7 +66,7 @@ public class RoadManager : MonoBehaviour
         foreach(var temporaryPosition in temporaryPlacementPositions)
         {
             roadFixer.FixRoadAtPosition(placeMentManager, temporaryPosition);
-            var neighbours = placeMentManager.GetNeighbourTypesFor(temporaryPosition, CellType.Road);
+            var neighbours = placeMentManager.GetNeighboursOfTypeFor(temporaryPosition, CellType.Road);
             foreach(var roadposition in neighbours)
             {
                 if(roadPositionsToRecheck.Contains(roadposition) == false)
@@ -85,7 +85,7 @@ public class RoadManager : MonoBehaviour
     public void FinishingPlacingRoad()
     {
         placementMode = false;
-        placeMentManager.AddtemporaryStructureDictionary();
+        placeMentManager.AddtemporaryStructuresToStructureDictionary();
         if(temporaryPlacementPositions.Count > 0)
         {
             AudioPlayer.instance.PlayPlacementSound();

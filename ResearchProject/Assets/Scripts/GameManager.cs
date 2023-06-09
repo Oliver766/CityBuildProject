@@ -1,41 +1,46 @@
+﻿using SVS;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SVS;
-using System;
 
 public class GameManager : MonoBehaviour
 {
     public CameraMovement cameraMovement;
     public RoadManager roadManager;
     public InputManager inputManager;
-    public UIController uIController;
+
+    public UIController uiController;
+
+    public StructureManager structureManager;
 
     private void Start()
     {
-        uIController.OnRoadPlacement += roadPlacementHandler;
-        uIController.OnHousePlacement += HousePlacementHandler;
-        uIController.OnSpecialPlacement += SpecialPlacementHandler;
-       
+        uiController.OnRoadPlacement += RoadPlacementHandler;
+        uiController.OnHousePlacement += HousePlacementHandler;
+        uiController.OnSpecialPlacement += SpecialPlacementHandler;
+        
     }
 
     private void SpecialPlacementHandler()
     {
         ClearInputActions();
+        inputManager.OnMouseClick += structureManager.PlaceSpecial;
     }
 
     private void HousePlacementHandler()
     {
         ClearInputActions();
+        inputManager.OnMouseClick += structureManager.PlaceHouse;
     }
 
-    private void roadPlacementHandler()
+    private void RoadPlacementHandler()
     {
         ClearInputActions();
+
         inputManager.OnMouseClick += roadManager.placeRoad;
         inputManager.OnMouseHold += roadManager.placeRoad;
         inputManager.OnMouseUp += roadManager.FinishingPlacingRoad;
-
     }
 
     private void ClearInputActions()
@@ -47,7 +52,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x,0,
-            inputManager.CameraMovementVector.y));
+        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x,0, inputManager.CameraMovementVector.y));
     }
 }
