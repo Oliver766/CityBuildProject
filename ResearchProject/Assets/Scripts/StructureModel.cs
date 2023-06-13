@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using Pedestrian.AI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Timeline;
 
-public class StructureModel : MonoBehaviour
+public class StructureModel : MonoBehaviour, INeedingRoad
 {
     float yHeight = 0;
+
+    public Vector3Int RoadPosition { get; set; }
 
     public void CreateModel(GameObject model)
     {
@@ -23,6 +25,7 @@ public class StructureModel : MonoBehaviour
         structure.transform.localPosition = new Vector3(0, yHeight, 0);
         structure.transform.localRotation = rotation;
     }
+
 
     public Vector3 GetNearestMarkerTo(Vector3 position)
     {
