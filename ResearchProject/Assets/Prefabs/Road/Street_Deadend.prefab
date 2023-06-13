@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9134669769148533761}
-  - component: {fileID: 6163529251784116507}
+  - component: {fileID: 97010522950648402}
   m_Layer: 0
   m_Name: Maker 2
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 2100345786477648002}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6163529251784116507
+--- !u!114 &97010522950648402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 222795275168324443}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d16f6d30cb06d40a1daedbeab4c288, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fc0ba44aac3b484b8a0a4d8cbad8d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   adjacentMarkers:
-  - {fileID: 7556502032825985823}
+  - {fileID: 46339518688054008}
   openForConnections: 1
 --- !u!1 &730729423407766507
 GameObject:
@@ -56,7 +56,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 536888469323413863}
-  - component: {fileID: 5232215145764187919}
+  - component: {fileID: 7890963377011101480}
   m_Layer: 0
   m_Name: Marker1
   m_TagString: Untagged
@@ -79,7 +79,7 @@ Transform:
   m_Father: {fileID: 2100345786477648002}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5232215145764187919
+--- !u!114 &7890963377011101480
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,11 +88,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 730729423407766507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d16f6d30cb06d40a1daedbeab4c288, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fc0ba44aac3b484b8a0a4d8cbad8d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   adjacentMarkers:
-  - {fileID: 7556502032825985823}
+  - {fileID: 46339518688054008}
   openForConnections: 1
 --- !u!1 &1120765361980748800
 GameObject:
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2100345786477648002}
-  - component: {fileID: 2068723338300989032}
+  - component: {fileID: 9069221459227215943}
   m_Layer: 0
   m_Name: Street_Deadend
   m_TagString: Untagged
@@ -130,7 +130,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2068723338300989032
+--- !u!114 &9069221459227215943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,13 +139,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1120765361980748800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e398813ca6efac4c9975f6d36371eed, type: 3}
+  m_Script: {fileID: 11500000, guid: 061749052b93b894f98c62586fb5bc86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pedestrianMarkers:
-  - {fileID: 5232215145764187919}
-  - {fileID: 6163529251784116507}
-  - {fileID: 7556502032825985823}
+  - {fileID: 7890963377011101480}
+  - {fileID: 97010522950648402}
+  - {fileID: 46339518688054008}
   isCorner: 0
   hasCrosswalks: 0
 --- !u!1 &3271194926761996685
@@ -157,7 +157,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 194511462067708915}
-  - component: {fileID: 7556502032825985823}
+  - component: {fileID: 46339518688054008}
   m_Layer: 0
   m_Name: Maker 3
   m_TagString: Untagged
@@ -180,7 +180,7 @@ Transform:
   m_Father: {fileID: 2100345786477648002}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7556502032825985823
+--- !u!114 &46339518688054008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,12 +189,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3271194926761996685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d16f6d30cb06d40a1daedbeab4c288, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fc0ba44aac3b484b8a0a4d8cbad8d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   adjacentMarkers:
-  - {fileID: 6163529251784116507}
-  - {fileID: 5232215145764187919}
+  - {fileID: 97010522950648402}
+  - {fileID: 7890963377011101480}
   openForConnections: 0
 --- !u!1001 &1158018236724629396
 PrefabInstance:

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1999256409699408815}
-  - component: {fileID: 7355632380475770977}
+  - component: {fileID: 381754074201478426}
   m_Layer: 0
   m_Name: Maker 2
   m_TagString: Untagged
@@ -25,14 +25,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1097574930639826098}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.277, y: 0.064, z: 0}
+  m_LocalPosition: {x: 0.277, y: 0.085, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8378608801953597997}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7355632380475770977
+--- !u!114 &381754074201478426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,10 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1097574930639826098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d16f6d30cb06d40a1daedbeab4c288, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fc0ba44aac3b484b8a0a4d8cbad8d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjacentMarkers: []
+  adjacentMarkers:
+  - {fileID: 4960179751650174429}
   openForConnections: 1
 --- !u!1 &1468564826243225067
 GameObject:
@@ -55,7 +56,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1328660482656823585}
-  - component: {fileID: 4628177853699518941}
+  - component: {fileID: 4960179751650174429}
   m_Layer: 0
   m_Name: Marker1
   m_TagString: Untagged
@@ -71,14 +72,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468564826243225067}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.384, y: 0, z: 0.35}
+  m_LocalPosition: {x: -0.384, y: 0.05, z: 0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8378608801953597997}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4628177853699518941
+--- !u!114 &4960179751650174429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,10 +88,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1468564826243225067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d16f6d30cb06d40a1daedbeab4c288, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fc0ba44aac3b484b8a0a4d8cbad8d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjacentMarkers: []
+  adjacentMarkers:
+  - {fileID: 381754074201478426}
   openForConnections: 1
 --- !u!1 &7077802812573144028
 GameObject:
@@ -101,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8378608801953597997}
-  - component: {fileID: 2081153351098141073}
+  - component: {fileID: 2104869163985201588}
   m_Layer: 0
   m_Name: Street_Curve
   m_TagString: Untagged
@@ -127,7 +129,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2081153351098141073
+--- !u!114 &2104869163985201588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,12 +138,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7077802812573144028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e398813ca6efac4c9975f6d36371eed, type: 3}
+  m_Script: {fileID: 11500000, guid: 061749052b93b894f98c62586fb5bc86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pedestrianMarkers:
-  - {fileID: 4628177853699518941}
-  - {fileID: 7355632380475770977}
+  - {fileID: 4960179751650174429}
+  - {fileID: 381754074201478426}
   isCorner: 1
   hasCrosswalks: 0
 --- !u!1001 &3983515971606418912
