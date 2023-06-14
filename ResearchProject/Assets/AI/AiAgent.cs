@@ -22,6 +22,32 @@ namespace Pedestrian.AI
         public Color pathColor;
         PathVisualizer pathVisualizer;
 
+        Rigidbody rb;
+
+        private bool stop;
+
+        public bool Stop
+        {
+            get { return stop; }
+            set { 
+                stop = value;
+                if (stop)
+                {
+                    rb.velocity = Vector3.zero;
+                    animator.SetBool("Walk", false);
+                }
+                else
+                {
+                    animator.SetBool("Walk", true);
+                }
+            }
+        }
+
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
+
         private void Start()
         {
             pathVisualizer = FindObjectOfType<PathVisualizer>();
@@ -40,12 +66,12 @@ namespace Pedestrian.AI
             moveFlag = true;
             endPosition = pathToGo[index];
             animator = GetComponent<Animator>();
-            animator.SetTrigger("Walk");
+            Stop = false;
         }
 
         private void Update()
         {
-            if (moveFlag)
+            if (moveFlag && Stop == false)
             {
                 PerformMovement();
             }
@@ -74,7 +100,8 @@ namespace Pedestrian.AI
         {
             float step = speed * Time.deltaTime;
             Vector3 endPositionCorrect = new Vector3(endPosition.x, transform.position.y, endPosition.z);
-            transform.position = Vector3.MoveTowards(transform.position, endPositionCorrect, step);
+            //transform.position = Vector3.MoveTowards(transform.position, endPositionCorrect, step);
+            rb.velocity = transform.forward * speed;
 
             var lookDirection = endPositionCorrect - transform.position;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), Time.deltaTime * rotationSpeed);

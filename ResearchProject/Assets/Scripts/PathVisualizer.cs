@@ -1,5 +1,4 @@
-﻿
-using Pedestrian.AI;
+﻿using Pedestrian.AI;
 using System;
 using System.Collections;
 using System.Collections.Generic;

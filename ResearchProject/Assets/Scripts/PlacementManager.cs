@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
@@ -52,7 +54,7 @@ public class PlacementManager : MonoBehaviour
 
     }
 
-    private Vector3Int? GetNearestRoad(Vector3Int position, int width, int height)
+    public Vector3Int? GetNearestRoad(Vector3Int position, int width, int height)
     {
         for (int x = 0; x < width; x++)
         {
@@ -215,7 +217,4 @@ public class PlacementManager : MonoBehaviour
         }
         return null;
     }
-
- 
 }
-

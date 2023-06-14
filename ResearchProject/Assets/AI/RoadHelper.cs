@@ -10,18 +10,33 @@ namespace Pedestrian.AI
         [SerializeField]
         protected List<Marker> pedestrianMarkers;
         [SerializeField]
+        protected List<Marker> carMarkers;
+        [SerializeField]
         protected bool isCorner;
         [SerializeField]
         protected bool hasCrosswalks;
 
         float approximateThresholdCorner = 0.3f;
 
+        [SerializeField]
+        private Marker incomming, outgoing;
+
         public virtual Marker GetpositioForPedestrianToSpwan(Vector3 structurePosition)
         {
             return GetClosestMarkeTo(structurePosition, pedestrianMarkers);
         }
 
-        private Marker GetClosestMarkeTo(Vector3 structurePosition, List<Marker> pedestrianMarkers)
+        public virtual Marker GetPositioForCarToSpawn(Vector3 nextPathPosition)
+        {
+            return outgoing;
+        }
+
+        public virtual Marker GetPositioForCarToEnd(Vector3 previousPathPosition)
+        {
+            return incomming;
+        }
+
+        protected Marker GetClosestMarkeTo(Vector3 structurePosition, List<Marker> pedestrianMarkers, bool isCorner = false)
         {
             if (isCorner)
             {
@@ -55,12 +70,23 @@ namespace Pedestrian.AI
 
         public Vector3 GetClosestPedestrainPosition(Vector3 currentPosition)
         {
-            return GetClosestMarkeTo(currentPosition, pedestrianMarkers).Position;
+            return GetClosestMarkeTo(currentPosition, pedestrianMarkers, isCorner).Position;
         }
+
+        public Vector3 GetClosestCarMarkerPosition(Vector3 currentPosition)
+        {
+            return GetClosestMarkeTo(currentPosition, carMarkers, false).Position;
+        }
+
 
         public List<Marker> GetAllPedestrianMarkers()
         {
             return pedestrianMarkers;
+        }
+
+        public List<Marker> GetAllCarMarkers()
+        {
+            return carMarkers;
         }
     }
 }
