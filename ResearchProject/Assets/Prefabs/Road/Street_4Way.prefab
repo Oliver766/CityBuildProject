@@ -150,8 +150,11 @@ MonoBehaviour:
   - {fileID: 4683354824154304969}
   - {fileID: 7318614747961096918}
   - {fileID: 6385634343406799961}
+  carMarkers: []
   isCorner: 0
   hasCrosswalks: 1
+  incomming: {fileID: 0}
+  outgoing: {fileID: 0}
 --- !u!1 &4694944483803571065
 GameObject:
   m_ObjectHideFlags: 0
