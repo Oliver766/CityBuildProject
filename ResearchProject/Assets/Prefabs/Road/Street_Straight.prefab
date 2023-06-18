@@ -104,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5291017439121087136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.262, z: 0.35}
+  m_LocalPosition: {x: 0, y: 0.118, z: 0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8249578937786945616}
-  - component: {fileID: 3716189414904101528}
+  - component: {fileID: 1923139673030149916}
   m_Layer: 0
   m_Name: Street_Straight
   m_TagString: Untagged
@@ -149,7 +149,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5661862354351878554}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -160,8 +160,8 @@ Transform:
   - {fileID: 492421887175421646}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3716189414904101528
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1923139673030149916
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,17 +170,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 5661862354351878554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061749052b93b894f98c62586fb5bc86, type: 3}
+  m_Script: {fileID: 11500000, guid: f65b2057f9155d344a6d95b892e6fa46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pedestrianMarkers:
   - {fileID: 8042435397335082465}
   - {fileID: 4354600647867773720}
-  carMarkers: []
+  carMarkers:
+  - {fileID: 2648711688906461675}
+  - {fileID: 3319309945782811683}
   isCorner: 0
   hasCrosswalks: 0
   incomming: {fileID: 0}
   outgoing: {fileID: 0}
+  leftLaneMarker90: {fileID: 3319309945782811683}
+  rightLaneMarker90: {fileID: 2648711688906461675}
 --- !u!1 &5847636188512474783
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5847636188512474783}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.262, z: -0.35}
+  m_LocalPosition: {x: 0, y: 0.113, z: -0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

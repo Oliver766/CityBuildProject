@@ -147,7 +147,9 @@ MonoBehaviour:
   - {fileID: 7890963377011101480}
   - {fileID: 97010522950648402}
   - {fileID: 46339518688054008}
-  carMarkers: []
+  carMarkers:
+  - {fileID: 3668219941051443193}
+  - {fileID: 2887534371920997822}
   isCorner: 0
   hasCrosswalks: 0
   incomming: {fileID: 0}
