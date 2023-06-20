@@ -250,6 +250,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5155644068091976813}
   - component: {fileID: 8179089933155778359}
+  - component: {fileID: 6051684175738366169}
+  - component: {fileID: 2765013546861352290}
   m_Layer: 0
   m_Name: Street_4Way
   m_TagString: Untagged
@@ -312,6 +314,37 @@ MonoBehaviour:
   hasCrosswalks: 1
   incomming: {fileID: 0}
   outgoing: {fileID: 0}
+--- !u!65 &6051684175738366169
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3351635067702010651}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9613831, y: 0.22205499, z: 1.0436647}
+  m_Center: {x: 0.0014851987, y: 0.12629832, z: -0.016072154}
+--- !u!114 &2765013546861352290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3351635067702010651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d5dbbfae0182d4586045f8c35c9972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCar: {fileID: 0}
+  pedestrianWaiting: 0
+  pedestrianWalking: 0
+  <OnPedestrianCanWalk>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3694936998128042857
 GameObject:
   m_ObjectHideFlags: 0
