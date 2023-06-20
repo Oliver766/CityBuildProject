@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public ObjectDetector objectDetector;
 
     public PathVisualizer pathVisualizer;
+    internal static object current;
 
     void Start()
     {
