@@ -69,7 +69,7 @@ public class Grid
 
     public Grid(int width, int height)
     {
-        _width = width;
+        _width = width ;
         _height = height;
         _grid = new CellType[width, height];
     }

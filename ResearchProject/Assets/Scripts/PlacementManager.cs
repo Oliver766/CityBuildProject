@@ -54,7 +54,7 @@ public class PlacementManager : MonoBehaviour
 
     }
 
-    public Vector3Int? GetNearestRoad(Vector3Int position, int width, int height)
+    private Vector3Int? GetNearestRoad(Vector3Int position, int width, int height)
     {
         for (int x = 0; x < width; x++)
         {
