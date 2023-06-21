@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InputManager : MonoBehaviour
+public class InputManagerv2 : MonoBehaviour
 {
     public event Action<Ray> OnMouseClick, OnMouseHold;
     public event Action OnMouseUp, OnEscape;

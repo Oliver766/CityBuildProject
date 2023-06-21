@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     // The input field for the player to change their name
     public TMP_InputField playerNameInputField;
 
+    [Obsolete]
     public void StartSession()
     {
         //get the device id

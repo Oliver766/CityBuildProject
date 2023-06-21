@@ -28,7 +28,7 @@ public class CurrencySystem : MonoBehaviour
     private void Start()
     {
         //give the player some currency
-        CurrencyAmounts[CurrencyType.Coins] = 100;
+        CurrencyAmounts[CurrencyType.Coins] = 30;
         CurrencyAmounts[CurrencyType.Crystals] = 10;
         //update UI texts to reflect the right amount
         UpdateUI();
@@ -72,6 +72,13 @@ public class CurrencySystem : MonoBehaviour
         //display that the player doesn't have any currency
         Debug.Log($"You don't have enough of {info.amount} {info.currencyType}");
     }
+
+  public void spend()
+    {
+        CurrencyAmounts[CurrencyType.Coins]  = -1;
+    }
+
+
 }
 
 public enum CurrencyType
