@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CityBuilder.AI
+namespace cityBuilder.AI
 {
     public class Vertex : IEquatable<Vertex>
     {

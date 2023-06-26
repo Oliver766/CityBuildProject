@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CityBuilder.AI
+namespace cityBuilder.AI
 {
+
     [RequireComponent(typeof(Animator))]
     public class AiAgent : MonoBehaviour
     {

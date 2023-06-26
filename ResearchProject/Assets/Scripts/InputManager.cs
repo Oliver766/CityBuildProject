@@ -16,11 +16,11 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        //CheckClickDownEvent();
-        //CheckClickHoldEvent();
-        //CheckClickUpEvent();
+        CheckClickDownEvent();
+        CheckClickHoldEvent();
+        CheckClickUpEvent();
         CheckArrowInput();
-        //CheckEscClick();
+        CheckEscClick();
     }
 
     private void CheckClickHoldEvent()

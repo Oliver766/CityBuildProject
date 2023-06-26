@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
-namespace CityBuilder.AI
+namespace cityBuilder.AI
 {
+
     public class AiDirector : MonoBehaviour
     {
         public PlacementManager placementManager;
@@ -18,11 +20,17 @@ namespace CityBuilder.AI
 
         List<Vector3> carPath = new List<Vector3>();
 
+         public List<GameObject> AIPeople = new List<GameObject>();
+        public TextMeshProUGUI number;
+
+
+
         public void SpawnAllAagents()
         {
             foreach (var house in placementManager.GetAllHouses())
             {
                 TrySpawningAnAgent(house, placementManager.GetRandomSpecialStrucutre());
+                
             }
             foreach (var specialStructure in placementManager.GetAllSpecialStructures())
             {
@@ -41,6 +49,7 @@ namespace CityBuilder.AI
                 var endMarkerPosition = placementManager.GetStructureAt(endPosition).GetNearestPedestrianMarkerTo(endStructure.transform.position);
 
                 var agent = Instantiate(GetRandomPedestrian(), startMarkerPosition.Position, Quaternion.identity);
+                AIPeople.Add(agent);
                 var path = placementManager.GetPathBetween(startPosition, endPosition, true);
                 if(path.Count > 0)
                 {
@@ -205,6 +214,9 @@ namespace CityBuilder.AI
             {
                 Debug.DrawLine(carPath[i - 1] + Vector3.up, carPath[i] + Vector3.up, Color.magenta);
             }
+
+      
+        
         }
 
         private void DrawGraph(AdjacencyGraph graph)

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace CityBuilder.AI
+namespace cityBuilder.AI
 {
     public class Marker : MonoBehaviour
     {

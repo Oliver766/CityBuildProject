@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace CityBuilder.AI
+namespace cityBuilder.AI
 {
     public class AdjacencyGraph
     {
