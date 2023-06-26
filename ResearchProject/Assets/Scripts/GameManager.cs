@@ -1,104 +1,116 @@
-﻿using System;
+﻿using CityBuilder.AI;
+using SVS;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //singletone pattern
-    public static GameManager current;
+    public CameraMovement cameraMovement;
+    public RoadManager roadManager;
+    public InputManager inputManager;
 
-    //the main object to be saved into a file
-    public SaveData saveData;
-    //path for loading scriptable objects (ShopItems)
-    public static string shopItemsPath = "Shop";
+    public UIController uiController;
 
-    public SocialManager socialManager;
-    public GameObject closePanel;
+    public StructureManager structureManager;
 
-    //save the canvas
-    public GameObject canvas;
+    public ObjectDetector objectDetector;
 
-    private void Awake()
+    public PathVisualizer pathVisualizer;
+
+    void Start()
     {
-        //initialize fields
-        current = this;
-        
-        //initialize
-        ShopItemDrag.canvas = canvas.GetComponent<Canvas>();
-        UIDrag.canvas = canvas.GetComponent<Canvas>();
-        
-        //initialize the save system
-        SaveSystem.Initialize();
+        uiController.OnRoadPlacement += RoadPlacementHandler;
+        uiController.OnHousePlacement += HousePlacementHandler;
+        uiController.OnSpecialPlacement += SpecialPlacementHandler;
+        uiController.OnBigStructurePlacement += BigStructurePlacement;
+        inputManager.OnEscape += HandleEscape;
     }
 
-    private void Start()
+    private void HandleEscape()
     {
-        //load the save data
-        saveData = SaveSystem.Load();
-        //load the game
-        LoadGame();
+        ClearInputActions();
+        uiController.ResetButtonColor();
+        pathVisualizer.ResetPath();
+        inputManager.OnMouseClick += TrySelectingAgent;
     }
+
+    private void TrySelectingAgent(Ray ray)
+    {
+        GameObject hitObject = objectDetector.RaycastAll(ray);
+        if(hitObject != null)
+        {
+            var agentScript = hitObject.GetComponent<AiAgent>();
+            agentScript?.ShowPath();
+        }
+    }
+
+    private void BigStructurePlacement()
+    {
+        ClearInputActions();
+
+        inputManager.OnMouseClick += (pos) =>
+        {
+            ProcessInputAndCall(structureManager.PlaceBigStructure, pos);
+        };
+        inputManager.OnEscape += HandleEscape;
+    }
+
+    private void SpecialPlacementHandler()
+    {
+        ClearInputActions();
+
+        inputManager.OnMouseClick += (pos) =>
+        {
+            ProcessInputAndCall(structureManager.PlaceSpecial, pos);
+        };
+        inputManager.OnEscape += HandleEscape;
+    }
+
+    private void HousePlacementHandler()
+    {
+        ClearInputActions();
+
+        inputManager.OnMouseClick += (pos) =>
+        {
+            ProcessInputAndCall(structureManager.PlaceHouse, pos);
+        };
+        inputManager.OnEscape += HandleEscape;
+    }
+
+    private void RoadPlacementHandler()
+    {
+        ClearInputActions();
+
+        inputManager.OnMouseClick += (pos) =>
+        {
+            ProcessInputAndCall(roadManager.PlaceRoad, pos);
+        };
+        inputManager.OnMouseUp += roadManager.FinishPlacingRoad;
+        inputManager.OnMouseHold += (pos) =>
+        {
+            ProcessInputAndCall(roadManager.PlaceRoad, pos);
+        };
+        inputManager.OnEscape += HandleEscape;
+    }
+
+    private void ClearInputActions()
+    {
+        inputManager.ClearEvents();
+    }
+
+    private void ProcessInputAndCall(Action<Vector3Int> callback, Ray ray)
+    {
+        Vector3Int? result = objectDetector.RaycastGround(ray);
+        if (result.HasValue)
+            callback.Invoke(result.Value);
+    }
+
+
 
     private void Update()
     {
-        //check for the Escape Key press
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            CloseGame();
-        }
-    }
-
-    private void LoadGame()
-    {
-        //load placeable objects (the map)
-        LoadPlaceableObjects();
-    }
-    
-    private void LoadPlaceableObjects()
-    {
-        //go through each saved data
-        foreach (var plObjData in saveData.placeableObjectDatas.Values)
-        {
-            //try-catch block in case something wasn't saved properly
-            //to avoid errors
-            try
-            {
-                //get the ShopItem from resources
-                ShopItem item = Resources.Load<ShopItem>(shopItemsPath + "/" + plObjData.assetName);
-                //instantiate the prefab
-                GameObject obj = BuildingSystem.current.InitializeWithObject(item.Prefab, plObjData.position, true);
-                //get the placeable object component
-                PlaceableObject plObj = obj.GetComponent<PlaceableObject>();
-                //initialize the component
-                plObj.Initialize(item, plObjData);
-                //load to finalize placement
-                plObj.Load();
-            }
-            catch (Exception e)
-            {
-                //Console.WriteLine(e);
-                //throw;
-            }
-        }
-    }
-
-    public void CloseGame()
-    {
-        //enable the close window
-        closePanel.SetActive(true);
-        
-        //save the data before closing
-        SaveSystem.Save(saveData);
-        //upload the data to server
-        socialManager.CreateSave();
-    }
-
-    public void ConfirmClose()
-    {
-        Application.Quit();
-    }
-
-    public void ConfirmCancel()
-    {
-        closePanel.SetActive(false);
+        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x, 0, inputManager.CameraMovementVector.y));
     }
 }

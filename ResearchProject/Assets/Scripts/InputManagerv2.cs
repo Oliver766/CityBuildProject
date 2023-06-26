@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System;    
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InputManagerv2 : MonoBehaviour
+public class InputManagerv2: MonoBehaviour
 {
     public event Action<Ray> OnMouseClick, OnMouseHold;
     public event Action OnMouseUp, OnEscape;
