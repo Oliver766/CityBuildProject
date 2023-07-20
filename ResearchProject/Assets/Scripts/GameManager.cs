@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 
+
 public class GameManager : MonoBehaviour
 {
     public CameraMovement cameraMovement;
@@ -56,6 +57,9 @@ public class GameManager : MonoBehaviour
 
     public AchievementManager achievementManager;
 
+    public GameObject[] popUps;
+    public int index;
+
     private void Awake()
     {
         if(number == 1)
@@ -64,12 +68,16 @@ public class GameManager : MonoBehaviour
             managers.SetActive(true);
             HUD.SetActive(true);
             Time.timeScale = 1;
+            cam2.SetActive(true);
+            cam1.SetActive(false);
         }
         else if(number == 0)
         {
             mainmenu.SetActive(true);
             managers.SetActive(false);
             HUD.SetActive(false);
+            cam2.SetActive(false);
+            cam1.SetActive(true);
         }
     }
 
@@ -116,7 +124,17 @@ public class GameManager : MonoBehaviour
         inputManager.OnEscape += HandleEscape;
     }
 
+    public void OpenPopups()
+    {
+        index = UnityEngine.Random.Range(0, 4);
+        popUps[index].SetActive(true);
+    }
 
+    public void ClosePopups()
+    {
+        index = UnityEngine.Random.Range(0, 4);
+        popUps[index].SetActive(false);
+    }
 
     private void SpecialPlacementHandler()
     {
