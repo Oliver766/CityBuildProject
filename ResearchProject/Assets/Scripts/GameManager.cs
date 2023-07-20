@@ -4,6 +4,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +22,58 @@ public class GameManager : MonoBehaviour
 
     public PathVisualizer pathVisualizer;
 
+    public int Days;
+    public int Population;
+
+    public TextMeshProUGUI PopTxT;
+
+    public static GameManager Instance;
+
+    public int POpCountMax;
+
+    public int PopCountMin;
+
+    [Header("int")]
+    public static int number = 0;
+
+    public GameObject pauseMenu;
+
+    public bool pause = true;
+
+    public GameObject managers;
+
+    public Animator transition;
+    public GameObject cam1;
+    public GameObject cam2;
+    public GameObject HUD;
+    public GameObject Managers;
+    public GameObject mainmenu;
+
+    public GameObject WinScreen;
+
+    public LevelSystemv2 systemv2;
+    public DaysCounter counter;
+
+    public AchievementManager achievementManager;
+
+    private void Awake()
+    {
+        if(number == 1)
+        {
+            mainmenu.SetActive(false);
+            managers.SetActive(true);
+            HUD.SetActive(true);
+            Time.timeScale = 1;
+        }
+        else if(number == 0)
+        {
+            mainmenu.SetActive(true);
+            managers.SetActive(false);
+            HUD.SetActive(false);
+        }
+    }
+
+
     void Start()
     {
         uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -28,6 +83,8 @@ public class GameManager : MonoBehaviour
         inputManager.OnEscape += HandleEscape;
     }
 
+    
+
     private void HandleEscape()
     {
         ClearInputActions();
@@ -35,6 +92,8 @@ public class GameManager : MonoBehaviour
         pathVisualizer.ResetPath();
         inputManager.OnMouseClick += TrySelectingAgent;
     }
+
+  
 
     private void TrySelectingAgent(Ray ray)
     {
@@ -57,6 +116,8 @@ public class GameManager : MonoBehaviour
         inputManager.OnEscape += HandleEscape;
     }
 
+
+
     private void SpecialPlacementHandler()
     {
         ClearInputActions();
@@ -67,6 +128,24 @@ public class GameManager : MonoBehaviour
         };
         inputManager.OnEscape += HandleEscape;
     }
+
+    /// <summary>
+    /// load games
+    /// </summary>
+    public void LoadScene()
+    {
+        number = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    /// <summary>
+    /// loads main menu
+    /// </summary>
+    public void LoadMainScene()
+    {
+        number = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
 
     private void HousePlacementHandler()
     {
@@ -112,5 +191,80 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x, 0, inputManager.CameraMovementVector.y));
+        PopTxT.text = Population.ToString();
+
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(pause == true)
+            {
+                Paused();
+          
+            }
+         
+        }
+
+
+        if( systemv2.level == 5 & counter.dayCount == 5)
+        {
+            // win game
+            WinGame();
+        }
+
+        if(Population == 12)
+        {
+            achievementManager.UnlockAchievement(AchievementID.Thereislife);
+        }
+
+    }
+
+
+    public void PressedInfo()
+    {
+        achievementManager.UnlockAchievement(AchievementID.NeededHelp);
+    }
+
+    public void WinGame()
+    {
+        Time.timeScale = 0;
+        managers.SetActive(false);
+        WinScreen.SetActive(true);
+        HUD.SetActive(false); 
+        Debug.Log("Won!!");
+    }
+
+    public void Play()
+    {
+        StartCoroutine(CamTransition()); 
+    }
+
+    public IEnumerator CamTransition()
+    {
+        transition.Play("cam1");
+        yield return new WaitForSeconds(1f);
+        cam1.SetActive(false);
+        cam2.SetActive(true);
+        HUD.SetActive(true);
+        managers.SetActive(true);
+        mainmenu.SetActive(false);
+    }
+
+    public void Paused()
+    {
+        Time.timeScale = 0;
+        pauseMenu.SetActive(true);
+        managers.SetActive(false);
+    }
+
+    public void UnPaused()
+    {
+        Time.timeScale = 1;
+        pauseMenu.SetActive(false);
+        managers.SetActive(true);
+    }
+
+    public void OnApplicationQuit()
+    {
+        Application.Quit(); 
     }
 }

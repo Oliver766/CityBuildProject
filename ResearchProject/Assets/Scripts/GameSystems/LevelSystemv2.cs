@@ -12,6 +12,7 @@ public class LevelSystemv2 : MonoBehaviour
     public float currentXP;
     public float targetXP;
     public Image xpProgressbar;
+    public AchievementManager AchievementManager;
 
 
     public void Update()
@@ -19,11 +20,17 @@ public class LevelSystemv2 : MonoBehaviour
         ExperienceText.text = currentXP + "/" + targetXP;
 
         ExperienceController();
+
+        if(level == 5)
+        {
+            Debug.Log("You've won");    
+        }
+
     }
 
     public void ExperienceController()
     {
-        leveltext.text = "Level : " + level.ToString();
+        leveltext.text = level.ToString();
         xpProgressbar.fillAmount = (currentXP / targetXP);
 
         if(currentXP >= targetXP) // level up

@@ -21,7 +21,7 @@ namespace cityBuilder.AI
         List<Vector3> carPath = new List<Vector3>();
 
          public List<GameObject> AIPeople = new List<GameObject>();
-        public TextMeshProUGUI number;
+    
 
 
 
@@ -36,6 +36,9 @@ namespace cityBuilder.AI
             {
                 TrySpawningAnAgent(specialStructure, placementManager.GetRandomHouseStructure());
             }
+
+
+
         }
 
         private void TrySpawningAnAgent(StructureModel startStructure, StructureModel endStructure)

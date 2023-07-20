@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using TMPro;
+
 
 public class CurrencySystemv2 : MonoBehaviour
 {
@@ -12,10 +14,30 @@ public class CurrencySystemv2 : MonoBehaviour
     public Button special;
     public Button bighouse;
 
+    [SerializeField] GameObject pointChange;
+    [SerializeField] Transform pointParent;
+    [SerializeField] RectTransform endPoint;
+    [SerializeField] Color colorGreen;
+    [SerializeField] Color colorRed;
+
+    public TextMeshProUGUI CurrencyTXT;
+
+    public bool MoneyUp = true;
+
+    public RoadManager manager;
+
+    public GameObject GameoverScreen;
+
+    public GameObject managers;
+
     public void Start()
     {
-        amount = 40;   
+        amount = 1230;
     }
+
+
+
+
 
     public void Update()
     {
@@ -26,49 +48,108 @@ public class CurrencySystemv2 : MonoBehaviour
             house.enabled = false;
             special.enabled = false;
             bighouse.enabled = false;
+            manager.enabled = false;
 
         }
-        else if( amount < 0)
+        else if( amount <= 0)
         {
             Gameover();
         }
-        else if( amount > 0)
+        else if( amount >= 10 &&  amount < 200)
+        {
+            road.enabled = true;
+            house.enabled = false;
+            special.enabled = false;
+            bighouse.enabled = false;
+            manager.enabled = true;
+        }
+        else if (amount >= 200 && amount < 500)
+        {
+            road.enabled = true;
+            house.enabled = true;
+            special.enabled = false;
+            bighouse.enabled = false;
+            manager.enabled = false;
+        }
+        else if (amount >= 500 && amount < 1000)
+        {
+            road.enabled = true;
+            house.enabled = true;
+            special.enabled = true;
+            bighouse.enabled = false;
+            manager.enabled = true;
+        }
+        else if (amount >= 1000)
         {
             road.enabled = true;
             house.enabled = true;
             special.enabled = true;
             bighouse.enabled = true;
+            manager.enabled = true;
         }
+
+        CurrencyTXT.text = amount.ToString();
+
+      
+    }
+
+
+    public void ShowPointChange(int change)
+    {
+        var inst = Instantiate(pointChange, Vector3.zero,Quaternion.identity);
+        inst.transform.SetParent(pointParent, true);
+
+        RectTransform rect = inst.GetComponent<RectTransform>();
+
+        Text text = inst.GetComponent<Text>();
+
+        text.text = (change > 0 ? "+": "" )+ change.ToString();
+        text.color = change > 0 ? colorGreen : colorRed;
+
+        LeanTween.moveY(rect, endPoint.anchoredPosition.y, 1.5f).setOnComplete(() => {
+
+            Destroy(inst);
+        
+        });
+        LeanTween.alphaText(rect, 0.25f, 1.5f);
+
+
+
     }
 
     public void Gameover()
     {
         Time.timeScale = 0;
+        GameoverScreen.SetActive(true);
         Debug.Log("game over");
+        managers.SetActive(false);
     }
 
     public IEnumerator AddCoins()
     {
-        while (true)
+        while (MoneyUp)
         {
-            amount += 100;
-
+            amount += 40;
             yield return new WaitForSeconds(1);
+            Debug.Log("Add noww");
         }
-    
+    }  
 
-    }
-    public IEnumerator TakeAwayCoins()
+    public IEnumerator TakeAaway()
     {
-        while (true)
+        while (MoneyUp)
         {
-            amount -= 5;
+            amount -= 200;
 
             yield return new WaitForSeconds(1);
         }
-
-
     }
+
+    public void BuyItem(float Currentamount)
+    {
+        amount = amount - Currentamount;
+    }
+
 
 
 
