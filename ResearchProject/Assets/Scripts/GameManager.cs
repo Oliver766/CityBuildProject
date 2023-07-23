@@ -240,6 +240,7 @@ public class GameManager : MonoBehaviour
     public void PressedInfo()
     {
         achievementManager.UnlockAchievement(AchievementID.NeededHelp);
+        achievementManager.ShowNotification();
     }
 
     public void WinGame()
@@ -258,13 +259,13 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator CamTransition()
     {
+        mainmenu.SetActive(false);
         transition.Play("cam1");
         yield return new WaitForSeconds(1f);
         cam1.SetActive(false);
         cam2.SetActive(true);
         HUD.SetActive(true);
         managers.SetActive(true);
-        mainmenu.SetActive(false);
     }
 
     public void Paused()
