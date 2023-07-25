@@ -30,6 +30,11 @@ public class CurrencySystemv2 : MonoBehaviour
 
     public GameObject managers;
 
+    public TextMeshProUGUI coinstxt;
+    public TextMeshProUGUI populationtxt;
+
+    public GameManager gameManager;
+
     public void Start()
     {
         amount = 1230;
@@ -123,6 +128,8 @@ public class CurrencySystemv2 : MonoBehaviour
         GameoverScreen.SetActive(true);
         Debug.Log("game over");
         managers.SetActive(false);
+        populationtxt.text = gameManager.Population.ToString();
+        CurrencyTXT.text = amount.ToString();
     }
 
     public IEnumerator AddCoins()

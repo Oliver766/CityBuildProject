@@ -26,6 +26,11 @@ public class LevelSystemv2 : MonoBehaviour
             Debug.Log("You've won");    
         }
 
+        if( level == 1)
+        {
+            AchievementManager.UnlockAchievement(AchievementID.NewOne);
+        }
+
     }
 
     public void ExperienceController()

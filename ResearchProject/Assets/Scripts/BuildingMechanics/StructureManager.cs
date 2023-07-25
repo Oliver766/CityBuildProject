@@ -26,6 +26,8 @@ public class StructureManager : MonoBehaviour
     public GameManager manager;
     public int pop;
 
+    public AchievementManager achievementManager;
+
     private void Start()
     {
         houseWeights = housesPrefabe.Select(prefabStats => prefabStats.weight).ToArray();
@@ -41,11 +43,10 @@ public class StructureManager : MonoBehaviour
             placementManager.PlaceObjectOnTheMap(position, housesPrefabe[randomIndex].prefab, CellType.Structure);
             systemv2.amount = systemv2.amount - HouseAmount;
             StartCoroutine(systemv2.AddCoins());
-            director.SpawnACar();
-            director.SpawnAllAagents();
             manager.Population += 12;
             LevelSystemv2.currentXP += 10;
             AudioPlayer.instance.PlayPlacementSound();
+            
         }
     }
 
@@ -59,8 +60,6 @@ public class StructureManager : MonoBehaviour
             placementManager.PlaceObjectOnTheMap(position, bigStructuresPrefabs[randomIndex].prefab, CellType.Structure, width, height);
             systemv2.amount = systemv2.amount - BigAmount;
             StartCoroutine(systemv2.AddCoins());
-            director.SpawnACar();
-            director.SpawnAllAagents();
             manager.Population += 12;
             LevelSystemv2.currentXP += 40;
             AudioPlayer.instance.PlayPlacementSound();
@@ -96,12 +95,11 @@ public class StructureManager : MonoBehaviour
             int randomIndex = GetRandomWeightedIndex(specialWeights);
             placementManager.PlaceObjectOnTheMap(position, specialPrefabs[randomIndex].prefab, CellType.SpecialStructure);
             systemv2.amount = systemv2.amount - SpecialAmount;
-            director.SpawnACar();
-            director.SpawnAllAagents();
             manager.Population += 12;
             LevelSystemv2.currentXP += 30;
             StartCoroutine(systemv2.TakeAaway());
             AudioPlayer.instance.PlayPlacementSound();
+            achievementManager.UnlockAchievement(AchievementID.Builder);
         }
     }
 

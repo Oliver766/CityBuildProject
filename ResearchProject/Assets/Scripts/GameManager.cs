@@ -60,6 +60,15 @@ public class GameManager : MonoBehaviour
     public GameObject[] popUps;
     public int index;
 
+    public TextMeshProUGUI coinstxt;
+    public TextMeshProUGUI populationtxt;
+
+    public CurrencySystemv2 currency;
+
+    public AchievementID AchievementID;
+
+    public bool OFF = true;
+
     private void Awake()
     {
         if(number == 1)
@@ -78,6 +87,7 @@ public class GameManager : MonoBehaviour
             HUD.SetActive(false);
             cam2.SetActive(false);
             cam1.SetActive(true);
+            Time.timeScale = 1;
         }
     }
 
@@ -109,7 +119,7 @@ public class GameManager : MonoBehaviour
         if(hitObject != null)
         {
             var agentScript = hitObject.GetComponent<AiAgent>();
-            agentScript?.ShowPath();
+            //agentScript?.ShowPath();
         }
     }
 
@@ -212,7 +222,7 @@ public class GameManager : MonoBehaviour
         PopTxT.text = Population.ToString();
 
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if(pause == true)
             {
@@ -234,13 +244,23 @@ public class GameManager : MonoBehaviour
             achievementManager.UnlockAchievement(AchievementID.Thereislife);
         }
 
+       
+
     }
+
+   
 
 
     public void PressedInfo()
     {
-        achievementManager.UnlockAchievement(AchievementID.NeededHelp);
-        achievementManager.ShowNotification();
+        while (OFF == true)
+        {
+            achievementManager.UnlockAchievement(AchievementID.NeededHelp);
+            achievementManager.ShowNotification();
+            OFF = false;
+        }
+    
+       
     }
 
     public void WinGame()
@@ -250,6 +270,9 @@ public class GameManager : MonoBehaviour
         WinScreen.SetActive(true);
         HUD.SetActive(false); 
         Debug.Log("Won!!");
+        populationtxt.text = Population.ToString();
+        coinstxt.text = currency.ToString();      
+
     }
 
     public void Play()

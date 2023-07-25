@@ -27,6 +27,7 @@ namespace cityBuilder.AI
 
         public void SpawnAllAagents()
         {
+
             foreach (var house in placementManager.GetAllHouses())
             {
                 TrySpawningAnAgent(house, placementManager.GetRandomSpecialStrucutre());
@@ -41,7 +42,7 @@ namespace cityBuilder.AI
 
         }
 
-        private void TrySpawningAnAgent(StructureModel startStructure, StructureModel endStructure)
+        public void TrySpawningAnAgent(StructureModel startStructure, StructureModel endStructure)
         {
             if(startStructure != null && endStructure != null)
             {

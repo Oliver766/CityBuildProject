@@ -15,16 +15,17 @@ public class AchievementManager : MonoBehaviour {
 
     public AchievementID achievementToShow;
 
-    [SerializeField][HideInInspector]
+    [SerializeField] [HideInInspector]
     private List<AchievementItemController> achievementItems;
 
     private void Start()
     {
         achievementDropdownController.onValueChanged += HandleAchievementDropdownValueChanged;
         LoadAchievementsTable();
+        //LoadTable();
     }
 
-	public void ShowNotification()
+    public void ShowNotification()
     {
         Achievement achievement = database.achievements[(int)achievementToShow];
         achievementNotificationController.ShowNotification(achievement);
@@ -38,22 +39,41 @@ public class AchievementManager : MonoBehaviour {
     [ContextMenu("LoadAchievementsTable()")]
     private void LoadAchievementsTable()
     {
-        foreach (AchievementItemController item in achievementItems)
-        {
-            DestroyImmediate(item.gameObject);
-        }
+        //foreach (AchievementItemController item in achievementItems)
+        //{
+        //    Destroy(item.gameObject);
+        //}
         achievementItems.Clear();
         foreach (Achievement achievement in database.achievements)
         {
             GameObject obj = Instantiate(achievementItemPrefab, scrollViewContent);
             AchievementItemController item = obj.GetComponent<AchievementItemController>();
-            bool unlocked = PlayerPrefs.GetInt(achievement.id, 0) == 1;
-            item.unlocked = unlocked;
+            //bool unlocked = PlayerPrefs.GetInt(achievement.id, 0) == 1;
+            //item.unlocked = unlocked;
             item.achievement = achievement;
             item.RefreshView();
             achievementItems.Add(item);
         }
     }
+
+    //[ContextMenu("LoadTable()")]
+    //public void LoadTable()
+    //{
+    //    //foreach(AchievementItemController items in achievementItems)
+    //    //{
+    //    //    Destroy(items.gameObject);
+    //    //}
+
+    //    achievementItems.Clear();
+    //    foreach(Achievement achievement in database.achievements)
+    //    {
+    //        GameObject obj = Instantiate(achievementItemPrefab, scrollViewContent);
+    //        AchievementItemController controller = obj.GetComponent<AchievementItemController>();
+    //        controller.achievement = achievement;
+    //        controller.RefreshView();
+    //        achievementItems.Add(controller);
+    //    }
+    //}
 
     public void UnlockAchievement()
     {

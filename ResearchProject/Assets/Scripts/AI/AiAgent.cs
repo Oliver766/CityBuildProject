@@ -52,20 +52,20 @@ namespace cityBuilder.AI
         private void Start()
         {
             pathVisualizer = FindObjectOfType<PathVisualizer>();
-            pathColor = UnityEngine.Random.ColorHSV(0f, 1f, 0f, 1f, 0f, 1f);
+            //pathColor = UnityEngine.Random.ColorHSV(0f, 1f, 0f, 1f, 0f, 1f);
         }
 
-        public void ShowPath()
-        {
-            pathVisualizer.ShowPath(pathToGo, this, pathColor);
-        }
+        //public void ShowPath()
+        //{
+        //    pathVisualizer.ShowPath(pathToGo, this, pathColor);
+        //}
 
         public void Initialize(List<Vector3> path)
         {
             pathToGo = path;
             index = 1;
             moveFlag = true;
-            endPosition = pathToGo[index];
+            endPosition = pathToGo[index ];
             animator = GetComponent<Animator>();
             Stop = false;
         }
