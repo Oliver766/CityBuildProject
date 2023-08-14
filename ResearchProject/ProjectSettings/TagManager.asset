@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Car
+  - Selectable
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - HUD
   - Water
   - UI
   - 
