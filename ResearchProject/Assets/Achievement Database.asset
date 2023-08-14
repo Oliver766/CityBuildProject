@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievements:
     array:
-    - id: There is life!
-      title: There is life!
+    - id: Thereislife
+      title: There is life
       description: You have recieved your first set of tenants
-    - id: Needed Help
+    - id: NeededHelp
       title: Needed Help
-      description: You've cheked out the info section
+      description: You've checked out the info section
     - id: Builder
-      title: Good Bye!
-      description: Some Description should
-    - id: NewOne
-      title: A new Achievement
-      description: Has appeared!
+      title: Builder
+      description: You've built a shop
+    - id: Dayinthecity
+      title: Day in the city
+      description: you've spent 2 day's in the city
