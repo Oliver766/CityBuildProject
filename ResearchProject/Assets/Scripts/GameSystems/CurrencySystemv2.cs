@@ -14,11 +14,11 @@ public class CurrencySystemv2 : MonoBehaviour
     public Button special;
     public Button bighouse;
 
-    [SerializeField] GameObject pointChange;
-    [SerializeField] Transform pointParent;
-    [SerializeField] RectTransform endPoint;
-    [SerializeField] Color colorGreen;
-    [SerializeField] Color colorRed;
+    //[SerializeField] GameObject pointChange;
+    //[SerializeField] Transform pointParent;
+    //[SerializeField] RectTransform endPoint;
+    //[SerializeField] Color colorGreen;
+    //[SerializeField] Color colorRed;
 
     public TextMeshProUGUI CurrencyTXT;
 
@@ -30,17 +30,32 @@ public class CurrencySystemv2 : MonoBehaviour
 
     public GameObject managers;
 
-    public TextMeshProUGUI coinstxt;
+
     public TextMeshProUGUI populationtxt;
 
     public GameManager gameManager;
+    public TextMeshProUGUI DayText;
+
+    public DaysCounter counter;
+
+    public GameObject HUD;
+
+    public GameObject NumberPrefab;
+    public Transform Parent;
+    public Vector3 newPosition;
+    public Quaternion newRotation;
+    public GameObject NumberminusPrefab;
+    public Transform Parenttwo;
+    public Vector3 newPositiontwo;
+    public Quaternion newRotationtwo;
+
+
+
 
     public void Start()
     {
-        amount = 1230;
+        amount = 10000;
     }
-
-
 
 
 
@@ -99,28 +114,28 @@ public class CurrencySystemv2 : MonoBehaviour
     }
 
 
-    public void ShowPointChange(int change)
-    {
-        var inst = Instantiate(pointChange, Vector3.zero,Quaternion.identity);
-        inst.transform.SetParent(pointParent, true);
+    //public void ShowPointChange(int change)
+    //{
+    //    var inst = Instantiate(pointChange, Vector3.zero,Quaternion.identity);
+    //    inst.transform.SetParent(pointParent, true);
 
-        RectTransform rect = inst.GetComponent<RectTransform>();
+    //    RectTransform rect = inst.GetComponent<RectTransform>();
 
-        Text text = inst.GetComponent<Text>();
+    //    Text text = inst.GetComponent<Text>();
 
-        text.text = (change > 0 ? "+": "" )+ change.ToString();
-        text.color = change > 0 ? colorGreen : colorRed;
+    //    text.text = (change > 0 ? "+": "" )+ change.ToString();
+    //    text.color = change > 0 ? colorGreen : colorRed;
 
-        LeanTween.moveY(rect, endPoint.anchoredPosition.y, 1.5f).setOnComplete(() => {
+    //    LeanTween.moveY(rect, endPoint.anchoredPosition.y, 1.5f).setOnComplete(() => {
 
-            Destroy(inst);
+    //        Destroy(inst);
         
-        });
-        LeanTween.alphaText(rect, 0.25f, 1.5f);
+    //    });
+    //    LeanTween.alphaText(rect, 0.25f, 1.5f);
 
 
 
-    }
+    //}
 
     public void Gameover()
     {
@@ -128,27 +143,33 @@ public class CurrencySystemv2 : MonoBehaviour
         GameoverScreen.SetActive(true);
         Debug.Log("game over");
         managers.SetActive(false);
+        HUD.SetActive(false);
         populationtxt.text = gameManager.Population.ToString();
-        CurrencyTXT.text = amount.ToString();
+        DayText.text = counter.dayCount.ToString();
     }
 
     public IEnumerator AddCoins()
     {
         while (MoneyUp)
         {
-            amount += 40;
+         
+           Instantiate(NumberPrefab, newPosition, newRotation, Parent);
+            amount += 1000;
             yield return new WaitForSeconds(1);
             Debug.Log("Add noww");
         }
+
     }  
 
     public IEnumerator TakeAaway()
     {
         while (MoneyUp)
         {
-            amount -= 200;
-
+            Instantiate(NumberminusPrefab, newPositiontwo, newRotationtwo, Parenttwo);
+            amount -= 500;
             yield return new WaitForSeconds(1);
+       
+          
         }
     }
 
@@ -156,6 +177,20 @@ public class CurrencySystemv2 : MonoBehaviour
     {
         amount = amount - Currentamount;
     }
+
+    //public IEnumerator PulseBig()
+    //{
+    //    for(float i = 1f; i <= 1.2f; i += 0.05f)
+    //    {
+    //        coinstxt.rectTransform.localScale = new Vector3(i, i, i);
+    //        yield return new WaitForEndOfFrame();
+    //    }
+    //    coinstxt.rectTransform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+
+    //    amount -= 1000;
+    //}
+
+  
 
 
 

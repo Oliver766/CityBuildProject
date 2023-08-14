@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
     public LevelSystemv2 systemv2;
     public DaysCounter counter;
 
+    public GameObject popUp1;
+
     public AchievementManager achievementManager;
 
     public GameObject[] popUps;
@@ -62,12 +64,18 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI coinstxt;
     public TextMeshProUGUI populationtxt;
+    public TextMeshProUGUI DayText;
+
+    public bool builder = true;
 
     public CurrencySystemv2 currency;
 
     public AchievementID AchievementID;
 
     public bool OFF = true;
+
+    public CameraMovement CameraMovement;
+
 
     private void Awake()
     {
@@ -174,6 +182,14 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void turnoffcam()
+    {
+        cameraMovement.enabled = false;
+    }
+    public void turnoncam()
+    {
+        cameraMovement.enabled = true;
+    }
 
     private void HousePlacementHandler()
     {
@@ -233,30 +249,39 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if( systemv2.level == 5 & counter.dayCount == 5)
+        if( systemv2.level == 5  || counter.dayCount == 5)
         {
             // win game
             WinGame();
         }
 
-        if(Population == 12)
-        {
-            achievementManager.UnlockAchievement(AchievementID.Thereislife);
-        }
-
-       
-
+    
     }
 
-   
+   public void URL()
+   {
+        Application.OpenURL("https://angliaruskin.onlinesurveys.ac.uk/buildacity-ui-survey-copy");
+   }
 
+
+    public void Build()
+    {
+        while (builder == true)
+        {
+            achievementManager.UnlockAchievement(AchievementID.Thereislife);
+            systemv2.currentXP += 20;
+            builder = false;
+        }
+       
+    }
 
     public void PressedInfo()
     {
         while (OFF == true)
         {
             achievementManager.UnlockAchievement(AchievementID.NeededHelp);
-            achievementManager.ShowNotification();
+            systemv2.currentXP += 20;
+
             OFF = false;
         }
     
@@ -271,7 +296,9 @@ public class GameManager : MonoBehaviour
         HUD.SetActive(false); 
         Debug.Log("Won!!");
         populationtxt.text = Population.ToString();
-        coinstxt.text = currency.ToString();      
+        coinstxt.text = currency.amount.ToString();
+        DayText.text = counter.dayCount.ToString();
+        HUD.SetActive(false);
 
     }
 
@@ -287,7 +314,15 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         cam1.SetActive(false);
         cam2.SetActive(true);
+        popUp1.SetActive(true);
         HUD.SetActive(true);
+        
+    
+      
+    }
+
+    public void StartManager()
+    {
         managers.SetActive(true);
     }
 
@@ -296,6 +331,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
         managers.SetActive(false);
+        HUD.SetActive(false);
     }
 
     public void UnPaused()

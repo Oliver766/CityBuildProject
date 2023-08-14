@@ -63,9 +63,9 @@ namespace cityBuilder.AI
         public void Initialize(List<Vector3> path)
         {
             pathToGo = path;
-            index = 1;
+            index = 0;
             moveFlag = true;
-            endPosition = pathToGo[index ];
+            endPosition = pathToGo[index];
             animator = GetComponent<Animator>();
             Stop = false;
         }

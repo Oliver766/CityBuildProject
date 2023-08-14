@@ -12,7 +12,10 @@ public class InputManager : MonoBehaviour
     public Vector2 CameraMovementVector { get => mouseMovementVector; }
     [SerializeField]
     Camera mainCamera;
-
+    public GameObject canceledPrefab;
+    public Transform Parenttwo;
+    public Vector3 newPositiontwo;
+    public Quaternion newRotationtwo;
 
     void Update()
     {
@@ -53,6 +56,8 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OnEscape.Invoke();
+            Debug.Log("Building Mode canceled");
+            Instantiate(canceledPrefab, newPositiontwo, newRotationtwo, Parenttwo);
         }
     }
 
@@ -67,5 +72,7 @@ public class InputManager : MonoBehaviour
         OnMouseHold = null;
         OnEscape = null;
         OnMouseUp = null;
+        Debug.Log("Building Mode canceled");
+     
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using cityBuilder.AI;
+using UnityEngine.UI;
 
 public class StructureManager : MonoBehaviour
 {
@@ -28,11 +29,46 @@ public class StructureManager : MonoBehaviour
 
     public AchievementManager achievementManager;
 
+    public bool Active = false;
+
+    public Button spawnAI;
+
+    public Button SpawnCar;
+
+    public bool builder = true;
+
+    public GameObject cantplaceherePrefab;
+    public Transform Parentone;
+    public Vector3 newPositionone;
+    public Quaternion newRotationone;
+    public GameObject OutofBoundsPrefab;
+    public Transform Parenttwo;
+    public Vector3 newPositiontwo;
+    public Quaternion newRotationtwo;
+    public GameObject NotEmptyPrefab;
+    public Transform Parentthree;
+    public Vector3 newPositionthree;
+    public Quaternion newRotationthree;
+    public GameObject POP1Prefab;
+    public Transform Parentfour;
+    public Vector3 newPositionfour;
+    public Quaternion newRotationfour;
+    public GameObject POP2Prefab;
+    public Transform Parentfive;
+    public Vector3 newPositionfive;
+    public Quaternion newRotationfive;
+
     private void Start()
     {
         houseWeights = housesPrefabe.Select(prefabStats => prefabStats.weight).ToArray();
         specialWeights = specialPrefabs.Select(prefabStats => prefabStats.weight).ToArray();
         bigStructureWeights = bigStructuresPrefabs.Select(prefabStats => prefabStats.weight).ToArray();
+
+        if(Active == false)
+        {
+            spawnAI.enabled = false;
+            SpawnCar.enabled = false;
+        }
     }
 
     public void PlaceHouse(Vector3Int position)
@@ -42,14 +78,28 @@ public class StructureManager : MonoBehaviour
             int randomIndex = GetRandomWeightedIndex(houseWeights);
             placementManager.PlaceObjectOnTheMap(position, housesPrefabe[randomIndex].prefab, CellType.Structure);
             systemv2.amount = systemv2.amount - HouseAmount;
-            StartCoroutine(systemv2.AddCoins());
-            manager.Population += 12;
+            StartCoroutine(systemv2.TakeAaway());
+            manager.Population += 4;
+            Instantiate(POP1Prefab, newPositionfour, newRotationfour, Parentfour);
             LevelSystemv2.currentXP += 10;
+            director.SpawnAllAagents();
+            director.SpawnACar();
             AudioPlayer.instance.PlayPlacementSound();
-            
+           
+
         }
     }
 
+    public void Builder()
+    {
+        while (builder == true)
+        {
+            achievementManager.UnlockAchievement(AchievementID.Builder);
+            LevelSystemv2.currentXP += 20;
+            builder = false;
+        }
+       
+    }
     internal void PlaceBigStructure(Vector3Int position)
     {
         int width = 2;
@@ -60,8 +110,11 @@ public class StructureManager : MonoBehaviour
             placementManager.PlaceObjectOnTheMap(position, bigStructuresPrefabs[randomIndex].prefab, CellType.Structure, width, height);
             systemv2.amount = systemv2.amount - BigAmount;
             StartCoroutine(systemv2.AddCoins());
-            manager.Population += 12;
+            manager.Population += 10;
+            Instantiate(POP2Prefab, newPositionfive, newRotationfive, Parentfive);
             LevelSystemv2.currentXP += 40;
+            director.SpawnAllAagents();
+            director.SpawnACar();
             AudioPlayer.instance.PlayPlacementSound();
         }
     }
@@ -95,11 +148,23 @@ public class StructureManager : MonoBehaviour
             int randomIndex = GetRandomWeightedIndex(specialWeights);
             placementManager.PlaceObjectOnTheMap(position, specialPrefabs[randomIndex].prefab, CellType.SpecialStructure);
             systemv2.amount = systemv2.amount - SpecialAmount;
-            manager.Population += 12;
+            manager.Population += 40;
             LevelSystemv2.currentXP += 30;
-            StartCoroutine(systemv2.TakeAaway());
+            director.SpawnAllAagents();
+            director.SpawnACar();
+            StartCoroutine(systemv2.AddCoins());
             AudioPlayer.instance.PlayPlacementSound();
-            achievementManager.UnlockAchievement(AchievementID.Builder);
+            Active = true;
+           
+        }
+    }
+
+    public void Update()
+    {
+        if(Active == true)
+        {
+            spawnAI.enabled = true;
+            SpawnCar.enabled = true;
         }
     }
 
@@ -143,6 +208,7 @@ public class StructureManager : MonoBehaviour
         if (placementManager.GetNeighboursOfTypeFor(position, CellType.Road).Count <= 0)
         {
             Debug.Log("Must be placed near a road");
+            Instantiate(cantplaceherePrefab, newPositionone, newRotationone, Parentone);
             return false;
         }
         return true;
@@ -153,11 +219,13 @@ public class StructureManager : MonoBehaviour
         if (placementManager.CheckIfPositionInBound(position) == false)
         {
             Debug.Log("This position is out of bounds");
+            //Instantiate(OutofBoundsPrefab, newPositiontwo, newRotationtwo, Parenttwo);
             return false;
         }
         if (placementManager.CheckIfPositionIsFree(position) == false)
         {
             Debug.Log("This position is not EMPTY");
+            Instantiate(NotEmptyPrefab, newPositionthree, newRotationthree, Parentthree);
             return false;
         }
         return true;

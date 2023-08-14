@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace cityBuilder.AI
 {
@@ -21,16 +22,16 @@ namespace cityBuilder.AI
         List<Vector3> carPath = new List<Vector3>();
 
          public List<GameObject> AIPeople = new List<GameObject>();
-    
 
-
-
+        
+   
         public void SpawnAllAagents()
         {
 
             foreach (var house in placementManager.GetAllHouses())
             {
                 TrySpawningAnAgent(house, placementManager.GetRandomSpecialStrucutre());
+            
                 
             }
             foreach (var specialStructure in placementManager.GetAllSpecialStructures())

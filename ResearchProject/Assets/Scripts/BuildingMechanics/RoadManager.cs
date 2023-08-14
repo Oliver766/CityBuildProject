@@ -66,7 +66,7 @@ public class RoadManager : MonoBehaviour
                     continue;
                 }  
                 placementManager.PlaceTemporaryStructure(temporaryPosition, roadFixer.deadEnd, CellType.Road);
-                //systemv2.amount = systemv2.amount - RoadAmount;
+                systemv2.amount = systemv2.amount - RoadAmount;
             }
         }
 
@@ -105,6 +105,6 @@ public class RoadManager : MonoBehaviour
         }
         temporaryPlacementPositions.Clear();
         startPosition = Vector3Int.zero;
-        systemv2.amount = systemv2.amount - RoadAmount;
+        //systemv2.amount = systemv2.amount - RoadAmount;
     }
 }

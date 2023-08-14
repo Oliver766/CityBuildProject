@@ -18,6 +18,8 @@ public class AchievementManager : MonoBehaviour {
     [SerializeField] [HideInInspector]
     private List<AchievementItemController> achievementItems;
 
+   
+
     private void Start()
     {
         achievementDropdownController.onValueChanged += HandleAchievementDropdownValueChanged;
