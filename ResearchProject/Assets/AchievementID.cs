@@ -1,6 +1,6 @@
 public enum AchievementID {
-	Thereislife,
-	NeededHelp,
+	AHelpingHand,
 	Builder,
-	Dayinthecity,
+	TwoDaysinthecity,
+	ThereisLife,
 }
