@@ -148,7 +148,6 @@ public class StructureManager : MonoBehaviour
             int randomIndex = GetRandomWeightedIndex(specialWeights);
             placementManager.PlaceObjectOnTheMap(position, specialPrefabs[randomIndex].prefab, CellType.SpecialStructure);
             systemv2.amount = systemv2.amount - SpecialAmount;
-            manager.Population += 40;
             LevelSystemv2.currentXP += 30;
             director.SpawnAllAagents();
             director.SpawnACar();

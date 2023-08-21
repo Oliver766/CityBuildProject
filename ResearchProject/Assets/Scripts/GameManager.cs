@@ -66,15 +66,17 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI populationtxt;
     public TextMeshProUGUI DayText;
 
-    public bool builder = true;
+    public bool builder;
 
     public CurrencySystemv2 currency;
 
-    public AchievementID AchievementID;
 
-    public bool OFF = true;
+
+    public bool OFF;
 
     public CameraMovement CameraMovement;
+
+    public bool people;
 
 
     private void Awake()
@@ -107,6 +109,7 @@ public class GameManager : MonoBehaviour
         uiController.OnSpecialPlacement += SpecialPlacementHandler;
         uiController.OnBigStructurePlacement += BigStructurePlacement;
         inputManager.OnEscape += HandleEscape;
+        people = true;
     }
 
     
@@ -255,6 +258,42 @@ public class GameManager : MonoBehaviour
             WinGame();
         }
 
+        while(OFF == true)
+        {
+            achievementManager.UnlockAchievement(AchievementID.AHelpingHand);
+            OFF = false;
+            systemv2.currentXP += 20;
+            
+
+        }
+
+
+        while(builder == true)
+        {
+            achievementManager.UnlockAchievement(AchievementID.Builder);
+
+
+            systemv2.currentXP += 20;
+            builder = false;
+           
+        }
+
+     
+
+        if(Population == 4)
+        {
+            achievementManager.achievementToShow = AchievementID.ThereisLife;
+            while(people == true)
+            {
+                achievementManager.UnlockAchievement(AchievementID.ThereisLife);
+
+                systemv2.currentXP += 20;
+
+                people = false;
+                achievementManager.achievementToShow = AchievementID.AHelpingHand;
+
+            }
+        }
     
     }
 
@@ -266,26 +305,16 @@ public class GameManager : MonoBehaviour
 
     public void Build()
     {
-        while (builder == true)
-        {
-            achievementManager.UnlockAchievement(AchievementID.Thereislife);
-            systemv2.currentXP += 20;
-            builder = false;
-        }
-       
+        builder = true;
+        achievementManager.achievementToShow = AchievementID.Builder;
+
     }
 
     public void PressedInfo()
     {
-        while (OFF == true)
-        {
-            achievementManager.UnlockAchievement(AchievementID.NeededHelp);
-            systemv2.currentXP += 20;
+        OFF = true;
+        achievementManager.achievementToShow = AchievementID.AHelpingHand;
 
-            OFF = false;
-        }
-    
-       
     }
 
     public void WinGame()

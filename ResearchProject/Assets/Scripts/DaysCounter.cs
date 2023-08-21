@@ -51,12 +51,16 @@ public class DaysCounter : MonoBehaviour
 
         if(dayCount == 2 )
         {
-           
-                while (active == true)
-                {
-                    achievementManager.UnlockAchievement(AchievementID.Dayinthecity);
+            achievementManager.achievementToShow = AchievementID.TwoDaysinthecity;
+            while (active == true)
+            {
+                 
+                 achievementManager.UnlockAchievement(AchievementID.TwoDaysinthecity);
                     active = false;
-                }
+                achievementManager.achievementToShow = AchievementID.AHelpingHand;
+               
+
+            }
             
           
            

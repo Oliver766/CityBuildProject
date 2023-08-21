@@ -89,7 +89,7 @@ public class AchievementManager : MonoBehaviour {
             return;
 
         ShowNotification();
-        PlayerPrefs.SetInt(item.achievement.id, 1);
+        //PlayerPrefs.SetInt(item.achievement.id, 1);
         item.unlocked = true;
         item.RefreshView();
     }
