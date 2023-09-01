@@ -1,20 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-
+// script reference by Sunny Valley Studio - https://www.youtube.com/watch?v=8ayFCDbfIIM&list=PLcRSafycjWFd6YOvRE3GQqURFpIxZpErI
+// script eddited by Oliver Lancashire
+// sid 1901981
 /// <summary>
 /// Source https://github.com/lordjesus/Packt-Introduction-to-graph-algorithms-for-game-developers
 /// </summary>
 public class Point
 {
+    // int
     public int X { get; set; }
     public int Y { get; set; }
-
+    /// <summary>
+    /// points
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     public Point(int x, int y)
     {
         this.X = x;
         this.Y = y;
     }
-
+    /// <summary>
+    /// equals
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public override bool Equals(object obj)
     {
         if (obj == null)
@@ -28,7 +39,10 @@ public class Point
         }
         return false;
     }
-
+    /// <summary>
+    /// get hash code
+    /// </summary>
+    /// <returns></returns>
     public override int GetHashCode()
     {
         unchecked
@@ -39,7 +53,10 @@ public class Point
             return hash;
         }
     }
-
+    /// <summary>
+    /// over ride
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return "P(" + this.X + ", " + this.Y + ")";
@@ -54,7 +71,9 @@ public enum CellType
     SpecialStructure,
     None
 }
-
+/// <summary>
+/// grid function
+/// </summary>
 public class Grid
 {
     private CellType[,] _grid;

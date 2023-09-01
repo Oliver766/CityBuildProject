@@ -3,28 +3,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// script reference by Sunny Valley Studio - https://www.youtube.com/watch?v=8ayFCDbfIIM&list=PLcRSafycjWFd6YOvRE3GQqURFpIxZpErI
+// script eddited by Oliver Lancashire
+// sid 1901981
 public class RoadManager : MonoBehaviour
 {
+    [Header("Reference")]
     public PlacementManager placementManager;
-
+    public RoadFixer roadFixer;
+    public CurrencySystemv2 systemv2;
+    [Header("List")]
     public List<Vector3Int> temporaryPlacementPositions = new List<Vector3Int>();
     public List<Vector3Int> roadPositionsToRecheck = new List<Vector3Int>();
-
+    [Header("vector")]
     private Vector3Int startPosition;
     private bool placementMode = false;
-
-    public RoadFixer roadFixer;
-
+    [Header("Float")]
     public float RoadAmount;
-
-    public CurrencySystemv2 systemv2;
 
     private void Start()
     {
-        roadFixer = GetComponent<RoadFixer>();
+        roadFixer = GetComponent<RoadFixer>(); // get component
     }
 
+    /// <summary>
+    /// place road function
+    /// </summary>
+    /// <param name="position"></param>
     public void PlaceRoad(Vector3Int position)
     {
         if (placementManager.CheckIfPositionInBound(position) == false)
@@ -73,7 +78,9 @@ public class RoadManager : MonoBehaviour
         FixRoadPrefabs();
 
     }
-
+    /// <summary>
+    /// adding roads to array and fixing placing
+    /// </summary>
     private void FixRoadPrefabs()
     {
         foreach (var temporaryPosition in temporaryPlacementPositions)
@@ -94,6 +101,9 @@ public class RoadManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// finishing placing road then clearing temporary array positions
+    /// </summary>
     public void FinishPlacingRoad()
     {
         placementMode = false;

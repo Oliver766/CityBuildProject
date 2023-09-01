@@ -5,22 +5,22 @@ using TMPro;
 using System;
 // script by Oliver lancashire
 // sid 1901981
-
 public class Daysystem : MonoBehaviour
 {
-
+    [Header("Lights")]
     [SerializeField] private Light DirectionalLight;
     [SerializeField] private LightingPresent lightingPresent;
+    [Header("floats")]
     [SerializeField, Range(0, 24)] public float TimeOfDay;
+    [Header("reference")]
     public GameManager manager;
-
-
 
     private void Update()
     {
+        // check if objects if in game scene
         if (lightingPresent == null)
             return;
-
+        // if game is playing then run day systen
         if (Application.isPlaying)
         {
             TimeOfDay += Time.deltaTime / 2;
@@ -28,6 +28,10 @@ public class Daysystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// function that will updating light in gam object.
+    /// </summary>
+    /// <param name="timePercent"></param>
     private void UpdateLighting(float timePercent)
     {
         RenderSettings.ambientLight = lightingPresent.AmbientColor.Evaluate(timePercent);
@@ -39,7 +43,7 @@ public class Daysystem : MonoBehaviour
 
         }
     }
-
+    // checking if light object is available
     private void OnValidate()
     {
         if (DirectionalLight != null)

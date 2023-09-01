@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+// script reference by - Zee Vasilyev - https://www.youtube.com/watch?v=H2qMxWcO9dg&list=PLFY3TFPG0dkomvWyb2fcPeqDSSvIO0NYb&index=13
+// script edited by Oliver lancashire
+// sid 1901981
 [RequireComponent(typeof(Dropdown))]
 public class AchievementDropdownController : MonoBehaviour {
-
+    // UI
     private Dropdown m_dropdown;
     private Dropdown Dropdown {
         get {
@@ -17,16 +19,17 @@ public class AchievementDropdownController : MonoBehaviour {
             return m_dropdown;
         }
     }
-
+    // action
     public Action<AchievementID> onValueChanged;
 
     private void Start()
     {
-        UpdateOptions();
-        Dropdown.onValueChanged.AddListener(HandleDropdownValueChanged);
+        UpdateOptions(); // update options
+        Dropdown.onValueChanged.AddListener(HandleDropdownValueChanged); // update value
     }
 
     [ContextMenu("UpdateOptions()")]
+    // function option update
     public void UpdateOptions()
     {
         Dropdown.options.Clear();
@@ -37,7 +40,7 @@ public class AchievementDropdownController : MonoBehaviour {
         }
         Dropdown.RefreshShownValue();
     }
-
+    // chnage values
     private void HandleDropdownValueChanged(int value)
     {
         if (onValueChanged != null)

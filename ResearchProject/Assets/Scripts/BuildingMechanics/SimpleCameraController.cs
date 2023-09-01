@@ -8,6 +8,8 @@ using UnityEngine;
 
 namespace UnityTemplateProjects
 {
+    // script reference by Sunny Valley Studio - https://www.youtube.com/watch?v=8ayFCDbfIIM&list=PLcRSafycjWFd6YOvRE3GQqURFpIxZpErI
+    // note used this script to make a camera controller
     public class SimpleCameraController : MonoBehaviour
     {
         class CameraState

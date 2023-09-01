@@ -3,11 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+// script reference by Sunny Valley Studio - https://www.youtube.com/watch?v=8ayFCDbfIIM&list=PLcRSafycjWFd6YOvRE3GQqURFpIxZpErI
+// script eddited by Oliver Lancashire
+// sid 1901981
 public class RoadFixer : MonoBehaviour
 {
+    [Header("GameObjects")]
     public GameObject deadEnd, roadStraight, corner, threeWay, fourWay;
-
+    /// <summary>
+    /// placing road at position
+    /// </summary>
+    /// <param name="placementManager"></param>
+    /// <param name="temporaryPosition"></param>
     public void FixRoadAtPosition(PlacementManager placementManager, Vector3Int temporaryPosition)
     {
         //[right, up, left, down]
@@ -31,13 +38,24 @@ public class RoadFixer : MonoBehaviour
             Create4Way(placementManager, result, temporaryPosition);
         }
     }
-
+    /// <summary>
+    /// create four way road
+    /// </summary>
+    /// <param name="placementManager"></param>
+    /// <param name="result"></param>
+    /// <param name="temporaryPosition"></param>
     private void Create4Way(PlacementManager placementManager, CellType[] result, Vector3Int temporaryPosition)
     {
         placementManager.ModifyStructureModel(temporaryPosition, fourWay, Quaternion.identity);
     }
 
     //[left, up, right, down]
+    /// <summary>
+    ///  create three way road
+    /// </summary>
+    /// <param name="placementManager"></param>
+    /// <param name="result"></param>
+    /// <param name="temporaryPosition"></param>
     private void Create3Way(PlacementManager placementManager, CellType[] result, Vector3Int temporaryPosition)
     {
         if(result[1] == CellType.Road && result[2] == CellType.Road && result[3] == CellType.Road)
@@ -59,6 +77,12 @@ public class RoadFixer : MonoBehaviour
     }
 
     //[left, up, right, down]
+    /// <summary>
+    /// create corner way road
+    /// </summary>
+    /// <param name="placementManager"></param>
+    /// <param name="result"></param>
+    /// <param name="temporaryPosition"></param>
     private void CreateCorner(PlacementManager placementManager, CellType[] result, Vector3Int temporaryPosition)
     {
         if (result[1] == CellType.Road && result[2] == CellType.Road )
@@ -80,6 +104,13 @@ public class RoadFixer : MonoBehaviour
     }
 
     //[left, up, right, down]
+    /// <summary>
+    /// create straight road
+    /// </summary>
+    /// <param name="placementManager"></param>
+    /// <param name="result"></param>
+    /// <param name="temporaryPosition"></param>
+    /// <returns></returns>
     private bool CreateStraightRoad(PlacementManager placementManager, CellType[] result, Vector3Int temporaryPosition)
     {
         if (result[0] == CellType.Road && result[2] == CellType.Road)
@@ -95,6 +126,12 @@ public class RoadFixer : MonoBehaviour
     }
 
     //[left, up, right, down]
+    /// <summary>
+    /// create dead end road
+    /// </summary>
+    /// <param name="placementManager"></param>
+    /// <param name="result"></param>
+    /// <param name="temporaryPosition"></param>
     private void CreateDeadEnd(PlacementManager placementManager, CellType[] result, Vector3Int temporaryPosition)
     {
         if (result[1] == CellType.Road )

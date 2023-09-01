@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// script reference by - Zee Vasilyev - https://www.youtube.com/watch?v=H2qMxWcO9dg&list=PLFY3TFPG0dkomvWyb2fcPeqDSSvIO0NYb&index=13
+// script edited by Oliver lancashire
+// sid 1901981
 public class AchievementManager : MonoBehaviour {
-
+    [Header("references")]
     public AchievementDatabase database;
-
     public AchievementNotificationController achievementNotificationController;
-
+    public AchievementID achievementToShow;
     public AchievementDropdownController achievementDropdownController;
-
+    [Header("gameobjects")]
     public GameObject achievementItemPrefab;
+    [Header("transform")]
     public Transform scrollViewContent;
 
-    public AchievementID achievementToShow;
+    
 
     [SerializeField] [HideInInspector]
     private List<AchievementItemController> achievementItems;
@@ -22,22 +24,29 @@ public class AchievementManager : MonoBehaviour {
 
     private void Start()
     {
-        achievementDropdownController.onValueChanged += HandleAchievementDropdownValueChanged;
-        LoadAchievementsTable();
+        achievementDropdownController.onValueChanged += HandleAchievementDropdownValueChanged; // update drop down
+        LoadAchievementsTable(); // load table
         //LoadTable();
     }
-
+    /// <summary>
+    /// show notification of particular achievement
+    /// </summary>
     public void ShowNotification()
     {
         Achievement achievement = database.achievements[(int)achievementToShow];
         achievementNotificationController.ShowNotification(achievement);
     }
-
+    /// <summary>
+    /// show achievements
+    /// </summary>
+    /// <param name="achievement"></param>
     private void HandleAchievementDropdownValueChanged(AchievementID achievement)
     {
         achievementToShow = achievement;
     }
-
+    /// <summary>
+    /// load table
+    /// </summary>
     [ContextMenu("LoadAchievementsTable()")]
     private void LoadAchievementsTable()
     {
@@ -77,11 +86,17 @@ public class AchievementManager : MonoBehaviour {
     //    }
     //}
 
+    /// <summary>
+    /// unlock achievements
+    /// </summary>
     public void UnlockAchievement()
     {
         UnlockAchievement(achievementToShow);
     }
-
+    /// <summary>
+    /// unlock achievements
+    /// </summary>
+    /// <param name="achievement"></param>
     public void UnlockAchievement(AchievementID achievement) 
     {
         AchievementItemController item = achievementItems[(int)achievement];
@@ -93,7 +108,9 @@ public class AchievementManager : MonoBehaviour {
         item.unlocked = true;
         item.RefreshView();
     }
-
+    /// <summary>
+    /// lock all achievements function
+    /// </summary>
     public void LockAllAchievements()
     {
         foreach (Achievement achievement in database.achievements)
