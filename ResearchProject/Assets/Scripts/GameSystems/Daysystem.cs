@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+// script by Oliver lancashire
+// sid 1901981
 
 public class Daysystem : MonoBehaviour
 {

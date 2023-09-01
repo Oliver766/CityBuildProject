@@ -3,64 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+// script by Oliver lancashire
+// sid 1901981
 
 public class CurrencySystemv2 : MonoBehaviour
 {
-    
+    [Header("floats")]
     public float amount;
+    [Header("UI")]
     public Button road;
     public Button house;
     public Button special;
     public Button bighouse;
-
-    //[SerializeField] GameObject pointChange;
-    //[SerializeField] Transform pointParent;
-    //[SerializeField] RectTransform endPoint;
-    //[SerializeField] Color colorGreen;
-    //[SerializeField] Color colorRed;
-
     public TextMeshProUGUI CurrencyTXT;
-
-    public bool MoneyUp = true;
-
-    public RoadManager manager;
-
-    public GameObject GameoverScreen;
-
-    public GameObject managers;
-
-
     public TextMeshProUGUI populationtxt;
-
-    public GameManager gameManager;
     public TextMeshProUGUI DayText;
-
+    [Header("Bool")]
+    public bool MoneyUp = true;
+    [Header("References")]
+    public GameManager gameManager;
+    public RoadManager manager;
     public DaysCounter counter;
-
+    [Header("Gameobjects")]
+    public GameObject GameoverScreen;
+    public GameObject managers;
     public GameObject HUD;
-
     public GameObject NumberPrefab;
-    public Transform Parent;
-    public Vector3 newPosition;
-    public Quaternion newRotation;
     public GameObject NumberminusPrefab;
-    public Transform Parenttwo;
+    [Header("vectors")]
     public Vector3 newPositiontwo;
     public Quaternion newRotationtwo;
-
-
-
+    public Vector3 newPosition;
+    public Quaternion newRotation;
+    [Header("Transform")]
+    public Transform Parenttwo;
+    public Transform Parent;
 
     public void Start()
     {
-        amount = 10000;
+        amount = 10000; // set amount
     }
-
-
 
     public void Update()
     {
+        // enable buttons if certain amount
         if(amount == 0) 
         {
 
@@ -71,11 +57,13 @@ public class CurrencySystemv2 : MonoBehaviour
             manager.enabled = false;
 
         }
+        // loose state
         else if( amount <= 0)
         {
             Gameover();
         }
-        else if( amount >= 10 &&  amount < 200)
+        // enable buttons if certain amount
+        else if ( amount >= 10 &&  amount < 200)
         {
             road.enabled = true;
             house.enabled = false;
@@ -83,6 +71,7 @@ public class CurrencySystemv2 : MonoBehaviour
             bighouse.enabled = false;
             manager.enabled = true;
         }
+        // enable buttons if certain amount
         else if (amount >= 200 && amount < 500)
         {
             road.enabled = true;
@@ -91,6 +80,7 @@ public class CurrencySystemv2 : MonoBehaviour
             bighouse.enabled = false;
             manager.enabled = false;
         }
+        // enable buttons if certain amount
         else if (amount >= 500 && amount < 1000)
         {
             road.enabled = true;
@@ -99,6 +89,7 @@ public class CurrencySystemv2 : MonoBehaviour
             bighouse.enabled = false;
             manager.enabled = true;
         }
+        // enable buttons if certain amount
         else if (amount >= 1000)
         {
             road.enabled = true;
@@ -108,14 +99,12 @@ public class CurrencySystemv2 : MonoBehaviour
             manager.enabled = true;
         }
 
-        CurrencyTXT.text = amount.ToString();
+        CurrencyTXT.text = amount.ToString(); // update currency text
 
-      
     }
-
-
-   
-
+    /// <summary>
+    /// gameover function
+    /// </summary>
     public void Gameover()
     {
         Time.timeScale = 0;
@@ -126,7 +115,10 @@ public class CurrencySystemv2 : MonoBehaviour
         populationtxt.text = gameManager.Population.ToString();
         DayText.text = counter.dayCount.ToString();
     }
-
+    /// <summary>
+    /// function that will keep adding money if bool is true
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator AddCoins()
     {
         while (MoneyUp)
@@ -138,8 +130,11 @@ public class CurrencySystemv2 : MonoBehaviour
             Debug.Log("Add noww");
         }
 
-    }  
-
+    }
+    /// <summary>
+    /// function that will keep taking away money if bool is true
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator TakeAaway()
     {
         while (MoneyUp)
@@ -152,32 +147,5 @@ public class CurrencySystemv2 : MonoBehaviour
         }
     }
 
-    public void BuyItem(float Currentamount)
-    {
-        amount = amount - Currentamount;
-    }
-
-    //public IEnumerator PulseBig()
-    //{
-    //    for(float i = 1f; i <= 1.2f; i += 0.05f)
-    //    {
-    //        coinstxt.rectTransform.localScale = new Vector3(i, i, i);
-    //        yield return new WaitForEndOfFrame();
-    //    }
-    //    coinstxt.rectTransform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-
-    //    amount -= 1000;
-    //}
-
-  
-
-
-
-
-    // todo
-    // add currency base that can be used in other scripts done
-    // add when currency is zero then you can't build anything done
-    // add system where you can gradually own money over time to do
-    // can loose money when  shops on grid todo
-    // play can loose when bankedrupt done
+    
 }
