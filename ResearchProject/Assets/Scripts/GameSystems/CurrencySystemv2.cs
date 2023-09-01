@@ -114,28 +114,7 @@ public class CurrencySystemv2 : MonoBehaviour
     }
 
 
-    //public void ShowPointChange(int change)
-    //{
-    //    var inst = Instantiate(pointChange, Vector3.zero,Quaternion.identity);
-    //    inst.transform.SetParent(pointParent, true);
-
-    //    RectTransform rect = inst.GetComponent<RectTransform>();
-
-    //    Text text = inst.GetComponent<Text>();
-
-    //    text.text = (change > 0 ? "+": "" )+ change.ToString();
-    //    text.color = change > 0 ? colorGreen : colorRed;
-
-    //    LeanTween.moveY(rect, endPoint.anchoredPosition.y, 1.5f).setOnComplete(() => {
-
-    //        Destroy(inst);
-        
-    //    });
-    //    LeanTween.alphaText(rect, 0.25f, 1.5f);
-
-
-
-    //}
+   
 
     public void Gameover()
     {

@@ -7,80 +7,62 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Cinemachine;
-
+// script reference by Sunny Valley Studio - https://www.youtube.com/watch?v=8ayFCDbfIIM&list=PLcRSafycjWFd6YOvRE3GQqURFpIxZpErI
+// script eddited by Oliver Lancashire
+// sid 1901981
 
 public class GameManager : MonoBehaviour
 {
+    [Header("References")]
     public CameraMovement cameraMovement;
     public RoadManager roadManager;
     public InputManager inputManager;
-
     public UIController uiController;
-
     public StructureManager structureManager;
-
     public ObjectDetector objectDetector;
-
     public PathVisualizer pathVisualizer;
-
+    public static GameManager Instance;
+    public LevelSystemv2 systemv2;
+    public DaysCounter counter;
+    public AchievementManager achievementManager;
+    public CurrencySystemv2 currency;
+    public CameraMovement CameraMovement;
+    [Header("Int")]
     public int Days;
     public int Population;
-
-    public TextMeshProUGUI PopTxT;
-
-    public static GameManager Instance;
-
     public int POpCountMax;
-
     public int PopCountMin;
-
-    [Header("int")]
     public static int number = 0;
-
-    public GameObject pauseMenu;
-
-    public bool pause = true;
-
-    public GameObject managers;
-
-    public Animator transition;
+    public int index;
+    [Header("UI")]
+    public TextMeshProUGUI PopTxT;
+    public TextMeshProUGUI coinstxt;
+    public TextMeshProUGUI populationtxt;
+    public TextMeshProUGUI DayText;
+    [Header("GameObjects")]
     public GameObject cam1;
     public GameObject cam2;
     public GameObject HUD;
     public GameObject Managers;
     public GameObject mainmenu;
-
+    public GameObject managers;
+    public GameObject pauseMenu;
     public GameObject WinScreen;
-
-    public LevelSystemv2 systemv2;
-    public DaysCounter counter;
-
     public GameObject popUp1;
-
-    public AchievementManager achievementManager;
-
     public GameObject[] popUps;
-    public int index;
-
-    public TextMeshProUGUI coinstxt;
-    public TextMeshProUGUI populationtxt;
-    public TextMeshProUGUI DayText;
-
+    [Header("Bool")]
+    public bool pause = true;
     public bool builder;
-
-    public CurrencySystemv2 currency;
-
-
-
     public bool OFF;
-
-    public CameraMovement CameraMovement;
-
     public bool people;
+    [Header("Animator")]
+    public Animator transition;
+
 
 
     private void Awake()
     {
+        // checks if number is one then set objects active in game and inactive for main menu
         if(number == 1)
         {
             mainmenu.SetActive(false);
@@ -90,7 +72,8 @@ public class GameManager : MonoBehaviour
             cam2.SetActive(true);
             cam1.SetActive(false);
         }
-        else if(number == 0)
+        //  checks if number is one then set objects active in main menu and inactive for game
+        else if (number == 0)
         {
             mainmenu.SetActive(true);
             managers.SetActive(false);
@@ -104,6 +87,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // set functions  for each input
         uiController.OnRoadPlacement += RoadPlacementHandler;
         uiController.OnHousePlacement += HousePlacementHandler;
         uiController.OnSpecialPlacement += SpecialPlacementHandler;
@@ -113,7 +97,9 @@ public class GameManager : MonoBehaviour
     }
 
     
-
+    /// <summary>
+    /// function to reset UI and player inputs
+    /// </summary>
     private void HandleEscape()
     {
         ClearInputActions();
@@ -123,7 +109,10 @@ public class GameManager : MonoBehaviour
     }
 
   
-
+    /// <summary>
+    /// tries to click on AI object
+    /// </summary>
+    /// <param name="ray"></param>
     private void TrySelectingAgent(Ray ray)
     {
         GameObject hitObject = objectDetector.RaycastAll(ray);
@@ -134,6 +123,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// set input action to place objects
+    /// </summary>
     private void BigStructurePlacement()
     {
         ClearInputActions();
@@ -144,19 +136,25 @@ public class GameManager : MonoBehaviour
         };
         inputManager.OnEscape += HandleEscape;
     }
-
+    /// <summary>
+    /// randomise UI pop up
+    /// </summary>
     public void OpenPopups()
     {
         index = UnityEngine.Random.Range(0, 4);
         popUps[index].SetActive(true);
     }
-
+    /// <summary>
+    /// close POPup
+    /// </summary>
     public void ClosePopups()
     {
         index = UnityEngine.Random.Range(0, 4);
         popUps[index].SetActive(false);
     }
-
+    /// <summary>
+    /// set input action to place objects
+    /// </summary>
     private void SpecialPlacementHandler()
     {
         ClearInputActions();
@@ -184,16 +182,23 @@ public class GameManager : MonoBehaviour
         number = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
+    /// <summary>
+    /// function to diable camera
+    /// </summary>
     public void turnoffcam()
     {
         cameraMovement.enabled = false;
     }
+    /// <summary>
+    ///  function to enable camera
+    /// </summary>
     public void turnoncam()
     {
         cameraMovement.enabled = true;
     }
-
+    /// <summary>
+    ///  set input action to place objects
+    /// </summary>
     private void HousePlacementHandler()
     {
         ClearInputActions();
@@ -204,7 +209,9 @@ public class GameManager : MonoBehaviour
         };
         inputManager.OnEscape += HandleEscape;
     }
-
+    /// <summary>
+    ///  set input action to place objects
+    /// </summary>
     private void RoadPlacementHandler()
     {
         ClearInputActions();
@@ -220,12 +227,18 @@ public class GameManager : MonoBehaviour
         };
         inputManager.OnEscape += HandleEscape;
     }
-
+    /// <summary>
+    ///  function to disable all imput events
+    /// </summary>
     private void ClearInputActions()
     {
         inputManager.ClearEvents();
     }
-
+    /// <summary>
+    /// function to detect if you place object
+    /// </summary>
+    /// <param name="callback"></param>
+    /// <param name="ray"></param>
     private void ProcessInputAndCall(Action<Vector3Int> callback, Ray ray)
     {
         Vector3Int? result = objectDetector.RaycastGround(ray);
@@ -237,10 +250,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        // moving camera using keys
         cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x, 0, inputManager.CameraMovementVector.y));
-        PopTxT.text = Population.ToString();
+        PopTxT.text = Population.ToString(); // update population text
 
-
+        // pausing and unpausing game
         if (Input.GetKeyDown(KeyCode.P))
         {
             if(pause == true)
@@ -251,13 +265,13 @@ public class GameManager : MonoBehaviour
          
         }
 
-
+        // game win loop
         if( systemv2.level == 5  || counter.dayCount == 5)
         {
             // win game
             WinGame();
         }
-
+        // run achievement
         while(OFF == true)
         {
             achievementManager.UnlockAchievement(AchievementID.AHelpingHand);
@@ -267,8 +281,8 @@ public class GameManager : MonoBehaviour
 
         }
 
-
-        while(builder == true)
+        // run achievement
+        while (builder == true)
         {
             achievementManager.UnlockAchievement(AchievementID.Builder);
 
@@ -278,9 +292,9 @@ public class GameManager : MonoBehaviour
            
         }
 
-     
 
-        if(Population == 4)
+        // run achievement
+        if (Population == 4)
         {
             achievementManager.achievementToShow = AchievementID.ThereisLife;
             while(people == true)
@@ -297,12 +311,17 @@ public class GameManager : MonoBehaviour
     
     }
 
+    /// <summary>
+    /// load survey
+    /// </summary>
    public void URL()
    {
         Application.OpenURL("https://angliaruskin.onlinesurveys.ac.uk/buildacity-ui-survey-copy");
    }
 
-
+    /// <summary>
+    /// run achievement
+    /// </summary>
     public void Build()
     {
         builder = true;
@@ -310,13 +329,18 @@ public class GameManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    ///    // run achievement
+    /// </summary>
     public void PressedInfo()
     {
         OFF = true;
         achievementManager.achievementToShow = AchievementID.AHelpingHand;
 
     }
-
+    /// <summary>
+    /// win game function
+    /// </summary>
     public void WinGame()
     {
         Time.timeScale = 0;
@@ -330,12 +354,17 @@ public class GameManager : MonoBehaviour
         HUD.SetActive(false);
 
     }
-
+    /// <summary>
+    /// run coroutine
+    /// </summary>
     public void Play()
     {
         StartCoroutine(CamTransition()); 
     }
-
+    /// <summary>
+    /// allows for smooth camera transition
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator CamTransition()
     {
         mainmenu.SetActive(false);
@@ -345,16 +374,18 @@ public class GameManager : MonoBehaviour
         cam2.SetActive(true);
         popUp1.SetActive(true);
         HUD.SetActive(true);
-        
     
-      
     }
-
+    /// <summary>
+    /// set manager object active
+    /// </summary>
     public void StartManager()
     {
         managers.SetActive(true);
     }
-
+    /// <summary>
+    /// pausing game function
+    /// </summary>
     public void Paused()
     {
         Time.timeScale = 0;
@@ -362,14 +393,18 @@ public class GameManager : MonoBehaviour
         managers.SetActive(false);
         HUD.SetActive(false);
     }
-
+    /// <summary>
+    /// unpausing game function
+    /// </summary>
     public void UnPaused()
     {
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
         managers.SetActive(true);
     }
-
+    /// <summary>
+    /// quit function
+    /// </summary>
     public void OnApplicationQuit()
     {
         Application.Quit(); 
