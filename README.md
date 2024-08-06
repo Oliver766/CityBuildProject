@@ -16,13 +16,5 @@ GitHUB - https://github.com/Oliver766/CityBuildProject
 Itch io - https://github.com/Oliver766/CityBuildProject
 
 
-body {
-
-}
-
-.color-font {
-    color: blue;
-}
-
 
 
