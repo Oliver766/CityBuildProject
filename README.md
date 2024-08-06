@@ -21,7 +21,7 @@ body {
 }
 
 .color-font {
-    color: white;
+    color: blue;
 }
 
 
